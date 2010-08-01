@@ -18,15 +18,14 @@ globebadge = function(){
     };
     if(elm && o.location){
       var url = 'http://query.yahooapis.com/v1/public/yql?q='+
-                'use%20%22http%3A%2F%2Fgithub.com%2Fyql%2Fyql-tables%2F'+
-                'raw%2Fmaster%2Fgeo%2Fgeo.globeimage.xml%22%20as%20g%3B'+
-                'select%20*%20from%20g%20where%20place%3D%22'+
+                'select%20*%20from%20geo.globeimage%20where%20place%3D%22'+
                  o.location+'%22';
       if(isshiteMSIE === false){
         url += '%20and%20type%3D%22data%22';
       }
       url += '%20and%20location%3D%22'+o.showlist+
-             '%22&callback=globebadge.seed&format=xml';
+             '%22&callback=globebadge.seed&format=xml'+
+             '&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
       var s = document.createElement('script');
       s.setAttribute('src',url);
       document.getElementsByTagName('head')[0].appendChild(s);
