@@ -8,15 +8,21 @@
 globebadge = function(){
   var elm;
   function init(o){
-    var isMSIE = /*@cc_on!@*/false;
-    elm = document.getElementById(o.element);
+    var isshiteMSIE = false;
+    /*@cc_on
+      isshiteMSIE = !window.XMLHttpRequest;
+    @*/
+    elm = o.element;
+    if(typeof elm === 'string'){
+      elm = document.getElementById(o.element); 
+    };
     if(elm && o.location){
       var url = 'http://query.yahooapis.com/v1/public/yql?q='+
                 'use%20%22http%3A%2F%2Fgithub.com%2Fyql%2Fyql-tables%2F'+
                 'raw%2Fmaster%2Fgeo%2Fgeo.globeimage.xml%22%20as%20g%3B'+
                 'select%20*%20from%20g%20where%20place%3D%22'+
                  o.location+'%22';
-      if(isMSIE === false){
+      if(isshiteMSIE === false){
         url += '%20and%20type%3D%22data%22';
       }
       url += '%20and%20location%3D%22'+o.showlist+
@@ -36,6 +42,7 @@ globebadge = function(){
         elm.innerHTML = res;
       }
     }
-  }
+    elm = '';
+  };
   return{init:init,seed:seed};
 }();
